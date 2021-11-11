@@ -3,7 +3,12 @@ const userModel = require('../models/userModel');
 const getUsers = async () => {
   const response = await userModel.getAll();
 
-  return response;
+  const result = response.map(element => {
+    const {name, birth, phone, cell, email, photoPath, role} = element;
+    return {name, birth, phone, cell, email, photoPath, role}
+  });
+
+  return result;
 }
 
 const insertUser = async ({ name, birth, phone, cell, email, password, role }) => { 
