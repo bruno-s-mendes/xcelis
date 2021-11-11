@@ -5,15 +5,17 @@ require('dotenv').config();
 
 const PORT = process.env.PORT;
 
+const userController = require('./controllers/userController');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/user', );
-app.post('/user', );
-app.delete('/user/:id', );
+app.get('/user', userController.getUsers);
+app.post('/user', userController.insertUser);
+app.delete('/user/:id', userController.deleteUser);
 
 
 
