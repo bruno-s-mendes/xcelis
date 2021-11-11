@@ -12,6 +12,8 @@ const loginController = require('./controllers/loginController');
 const userInputValidationMid = require('./middlewares/userInputValidationMid');
 const userIdValidationMid = require('./middlewares/userIdValidation');
 const loginValidationMid = require('./middlewares/loginValidationMid');
+const authMid = require('./middlewares/authMid');
+const isAdminMid = require('./middlewares/isAdminMid');
 
 const app = express();
 app.use(express.json());
@@ -31,10 +33,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.get('/user', userController.getUsers);
-app.post('/user', userInputValidationMid, userController.insertUser);
-app.post('/user/:id', userIdValidationMid, upload.single('image'), userController.uploadImage);
-app.delete('/user/:id', userIdValidationMid, userController.deleteUser);
+app.get('/user', authMid, isAdminMid, userController.getUsers);
+app.post('/user', authMid, isAdminMid, userInputValidationMid, userController.insertUser);
+app.post('/user/:id', authMid, isAdminMid, userIdValidationMid, upload.single('image'), userController.uploadImage);
+app.delete('/user/:id', authMid, isAdminMid, userIdValidationMid, userController.deleteUser);
 
 app.post('/login', loginValidationMid, loginController.login)
 
