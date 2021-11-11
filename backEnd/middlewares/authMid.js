@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
   
   const { name, email, role } = await userModel.getById(id);
   req.user = { name, email, role };
-  req.userId=id;
+  req.userId = id;
   
   next();
 };

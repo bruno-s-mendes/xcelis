@@ -9,6 +9,7 @@ const PORT = process.env.PORT;
 
 const userController = require('./controllers/userController');
 const loginController = require('./controllers/loginController');
+const taskController = require('./controllers/taskController');
 const userInputValidationMid = require('./middlewares/userInputValidationMid');
 const userIdValidationMid = require('./middlewares/userIdValidation');
 const loginValidationMid = require('./middlewares/loginValidationMid');
@@ -40,10 +41,10 @@ app.delete('/user/:id', authMid, isAdminMid, userIdValidationMid, userController
 
 app.post('/login', loginValidationMid, loginController.login);
 
-app.get('/task', );
-app.post('/task', );
-app.put('/task/:id', );
-app.delete('/task/:id', );
+app.get('/task', authMid, taskController.getTask);
+app.post('/task', authMid, isAdminMid, taskController.insertTask);
+app.put('/task/:id', authMid, taskController.updateStatus);
+app.delete('/task/:id', authMid, isAdminMid, taskController.deleteTask);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
