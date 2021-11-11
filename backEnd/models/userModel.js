@@ -12,12 +12,12 @@ const getAll = async () => {
   return response;
 };
 
-const create = async ({ name, birth, phone, cell, email, photoPath, password, role }) => {
+const create = async ({ name, birth, phone, cell, email, password, role }) => {
   const collection = await connection()
     .then((db) => db.collection(COLLECTION));
 
   const { insertedId: id } = await collection
-    .insertOne({ name, birth, phone, cell, email, photoPath, password, role });
+    .insertOne({ name, birth, phone, cell, email, password, role });
 
   return {
     name,
@@ -36,6 +36,15 @@ const getByEmail = async (email) => {
   return response;
 };
 
+const getById = async (id) => {
+  const collection = await connection()
+  .then((db) => db.collection(COLLECTION));
+
+  const response = await collection.findOne({ _id: new ObjectId(id) });
+
+  return response;
+};
+
 const deleteById = async (id) => {
   const collection = await connection()
   .then((db) => db.collection(COLLECTION));
@@ -45,9 +54,23 @@ const deleteById = async (id) => {
   return response;
 };
 
+const addPathById = async (id, photoPath) => {
+  const collection = await connection()
+  .then((db) => db.collection(COLLECTION));
+
+  const response = await collection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { photoPath } },
+  );
+
+  return response;
+};
+
 module.exports = {
   getAll,
   create,
   getByEmail,
   deleteById,
+  addPathById,
+  getById
 };
