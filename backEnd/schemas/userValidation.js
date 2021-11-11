@@ -24,6 +24,15 @@ const schema =  Joi.object({
     .required(),
 });
 
+const loginSchema =  Joi.object({
+  password: Joi.string()
+    .required(),
+
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .required(),
+});
+
   const validate = ({ name, birth, phone, cell, email, password, role }) => {
     return schema.validate({
       name,
@@ -36,7 +45,15 @@ const schema =  Joi.object({
     });
   }
 
+  const validateLogin = ({ email, password }) => {
+    return loginSchema.validate({
+      email,
+      password,
+    });
+  }
+
 module.exports = {
   validate,
+  validateLogin,
 }
   

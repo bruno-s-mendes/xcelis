@@ -8,8 +8,10 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 
 const userController = require('./controllers/userController');
+const loginController = require('./controllers/loginController');
 const userInputValidationMid = require('./middlewares/userInputValidationMid');
 const userIdValidationMid = require('./middlewares/userIdValidation');
+const loginValidationMid = require('./middlewares/loginValidationMid');
 
 const app = express();
 app.use(express.json());
@@ -33,6 +35,8 @@ app.get('/user', userController.getUsers);
 app.post('/user', userInputValidationMid, userController.insertUser);
 app.post('/user/:id', userIdValidationMid, upload.single('image'), userController.uploadImage);
 app.delete('/user/:id', userIdValidationMid, userController.deleteUser);
+
+app.post('/login', loginValidationMid, loginController.login)
 
 
 upload.single('image')
