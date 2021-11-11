@@ -38,11 +38,12 @@ app.post('/user', authMid, isAdminMid, userInputValidationMid, userController.in
 app.post('/user/:id', authMid, isAdminMid, userIdValidationMid, upload.single('image'), userController.uploadImage);
 app.delete('/user/:id', authMid, isAdminMid, userIdValidationMid, userController.deleteUser);
 
-app.post('/login', loginValidationMid, loginController.login)
+app.post('/login', loginValidationMid, loginController.login);
 
-
-upload.single('image')
-
+app.get('/task', );
+app.post('/task', );
+app.put('/task/:id', );
+app.delete('/task/:id', );
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
