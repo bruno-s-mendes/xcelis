@@ -40,7 +40,6 @@ class AddUser extends React.Component {
         role,
       }),
     }
-    console.log(requestOptions.body);
     fetch('http://localhost:3100/user', requestOptions)
     .then(response => {
       if (response.status === 201) {

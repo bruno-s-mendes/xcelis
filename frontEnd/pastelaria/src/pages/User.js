@@ -1,6 +1,6 @@
 import React from 'react';
 // import AddTask from '../components/AddTask';
-// import AddUser from '../components/AddUser';
+import AddUser from '../components/AddUser';
 import UserTable from '../components/UserTable';
 import Nav from '../components/Nav';
 
@@ -79,11 +79,11 @@ class Admin extends React.Component {
         console.log(error)
       });
     }
+
     const getTaskOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' , 'Authorization': token },
     }
-
     fetch('http://localhost:3100/task', getTaskOptions)
     .then(response => response.json())
     .then(data => {
@@ -114,8 +114,8 @@ class Admin extends React.Component {
     return (
      <div>
        <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
-       <UserTable userList={userList} updateUsers={this.updateUsers}/>
-       {/* <AddUser changeNav={this.changeNav}/> */}
+       <UserTable userList={userList} updateUsers={this.updateUsers} changeNav={this.changeNav}/>
+       <AddUser changeNav={this.changeNav}/>
        {/* <AddTask changeNav={this.changeNav} userList={userList}/> */}
      </div>
     );

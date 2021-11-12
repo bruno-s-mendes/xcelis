@@ -13,17 +13,39 @@ class UserTable extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    const { updateUsers } = this.props;
+    const getusersoptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+    }
+
+    fetch('http://localhost:3100/user', getusersoptions)
+    .then(response => response.json())
+    .then(data => {
+      updateUsers(data.users);
+    })
+    .catch(error => {
+      console.log(error)
+    });
+  }
+
   deleteUser = (id) => {
-    // fetch('http://localhost:3100/task', getTaskOptions)
-    // .then(response => response.json())
-    // .then(data => {
-    //   this.setState({
-    //     taskList: data.tasks,
-    //   })
-    // })
-    // .catch(error => {
-    //   console.log(error)
-    // });
+    const token = localStorage.getItem('token');
+    const { changeNav } = this.props
+    const deleteUserOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+    }
+    fetch(`http://localhost:3100/user/${id}`, deleteUserOptions)
+    .then(response => response.json())
+    .then(data => {
+      changeNav('user');
+    })
+    .catch(error => {
+      console.log(error)
+    });
   }
 
 render() {
