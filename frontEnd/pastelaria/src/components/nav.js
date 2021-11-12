@@ -7,8 +7,7 @@ class Nav extends React.Component {
     this.state = {
       redirectRoute:'',
     };
-    // this.handleChanges = this.handleChanges.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.logoff = this.logoff.bind(this);
   }
 logoff = () => {
   localStorage.clear();

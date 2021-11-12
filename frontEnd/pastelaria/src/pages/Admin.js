@@ -1,7 +1,8 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
+import AddUser from '../components/AddUser';
 import Nav from '../components/nav';
 import Table from '../components/table';
+
 
 class Admin extends React.Component {
   constructor(props) {
@@ -94,7 +95,8 @@ class Admin extends React.Component {
     return (
      <div>
        <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
-       <Table />
+       {/* <Table /> */}
+       <AddUser changeNav={this.changeNav}/>
      </div>
     );
   }
