@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -7,9 +7,40 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redirectRoute:'',
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount () {
+    const token = localStorage.getItem('token')
+    if (token) {
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+      }
+
+      fetch('http://localhost:3100/login', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        if(data.role === 'admin') {
+          console.log(data.role)
+          this.setState({
+            redirectRoute: '/admin'
+          })
+        }
+        if(data.role === 'user') {
+          console.log(data.role)
+          this.setState({
+            redirectRoute: '/user'
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    }
   }
 
   handleChanges(event) {
@@ -38,15 +69,33 @@ class Login extends React.Component {
       responseStatus = response.status;
       return response.json();
     })
-    .then(data => responseData = data);
+    .then(data => responseData = data)
+    .catch(error => {
+      console.log(error)
+    });
 
-    console.log(responseStatus);
-    console.log(responseData);
+    if (responseStatus === 200) {
+      localStorage.setItem('token', responseData.token);
+      localStorage.setItem('role', responseData.role);
+      if(responseData.role === 'admin') {
+        console.log(responseData.role)
+        this.setState({
+          redirectRoute: '/admin'
+        })
+      }
+      if(responseData.role === 'user') {
+        console.log(responseData.role)
+        this.setState({
+          redirectRoute: '/user'
+        })
+      }
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, redirectRoute } = this.state;
     return (
+      redirectRoute? <Redirect to={`${redirectRoute}`}/> :
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
