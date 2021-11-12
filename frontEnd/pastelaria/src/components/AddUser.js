@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
 
 class AddUser extends React.Component {
   constructor(props) {
@@ -80,7 +79,7 @@ class AddUser extends React.Component {
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <input
-              type="text"
+              type="date"
               name="birth"
               value={birth}
               onChange={ (event) => this.handleChanges(event)}

@@ -1,7 +1,9 @@
 import React from 'react';
-import AddUser from '../components/AddUser';
+import AddTask from '../components/AddTask';
+// import AddUser from '../components/AddUser';
+// import Table from '../components/table';
 import Nav from '../components/nav';
-import Table from '../components/table';
+
 
 
 class Admin extends React.Component {
@@ -11,15 +13,16 @@ class Admin extends React.Component {
       user: '',
       userId: '',
       role:'',
-      // taskList: [],
-      // userList: [],
+      taskList: [],
+      userList: [],
       navButtons: [],
       selectedNav: '',
     };
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
     if (token) {
       const requestOptions = {
         method: 'GET',
@@ -58,6 +61,38 @@ class Admin extends React.Component {
         console.log(error)
       });
     }
+    if (role === 'admin') {
+      const getusersoptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+      }
+  
+      fetch('http://localhost:3100/user', getusersoptions)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          userList: data.users,
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    }
+    const getTaskOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+    }
+
+    fetch('http://localhost:3100/task', getTaskOptions)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        taskList: data.tasks,
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    });
   }
 
   changeNav = (nav) => {
@@ -66,37 +101,15 @@ class Admin extends React.Component {
     })
   }
 
-  // componentDidUpdate() {
-  //   const token = localStorage.getItem('token')
-  //   const { userId, role } = this.state;
-
-  //   if (role === 'admin') {
-  //     const getusersoptions = {
-  //       method: 'GET',
-  //       headers: { 'Content-Type': 'application/json' , 'Authorization': token },
-  //     }
-  
-  //     fetch('http://localhost:3100/user', getusersoptions)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       this.setState({
-  //         userList: data.user,
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     });
-  //   }
-  // }
-
   render() {
-    const { user, navButtons, selectedNav } = this.state;
+    const { user, navButtons, selectedNav, userList } = this.state;
     console.log(selectedNav);
     return (
      <div>
        <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
        {/* <Table /> */}
-       <AddUser changeNav={this.changeNav}/>
+       {/* <AddUser changeNav={this.changeNav}/> */}
+       <AddTask changeNav={this.changeNav} userList={userList}/>
      </div>
     );
   }

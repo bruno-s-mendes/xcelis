@@ -8,7 +8,7 @@ const HTTP_CREATED_STATUS = 201;
 const getUsers = async (_req, res) => {
   try {
     const response = await userService.getUsers();
-    return res.status(HTTP_OK_STATUS).json({ user: response });
+    return res.status(HTTP_OK_STATUS).json({ users: response });
   } catch (error) {
     return res.status(HTTP_ERROR_STATUS).json({
       message: error,
