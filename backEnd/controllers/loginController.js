@@ -18,7 +18,8 @@ const login = async (req, res) => {
 const user = async (req, res) => {
   try {
     const user = req.user;
-    return res.status(HTTP_OK_STATUS).json(user);
+    const id = req.userId;
+    return res.status(HTTP_OK_STATUS).json({...user, id});
   } catch (error) {
     return res.status(HTTP_ERROR_STATUS).json({
       message: error,

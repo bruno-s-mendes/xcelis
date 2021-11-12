@@ -25,13 +25,11 @@ class Login extends React.Component {
       .then(response => response.json())
       .then(data => {
         if(data.role === 'admin') {
-          console.log(data.role)
           this.setState({
             redirectRoute: '/admin'
           })
         }
         if(data.role === 'user') {
-          console.log(data.role)
           this.setState({
             redirectRoute: '/user'
           })

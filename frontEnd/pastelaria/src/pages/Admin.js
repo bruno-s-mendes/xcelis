@@ -7,25 +7,93 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      user: '',
+      userId: '',
+      role:'',
+      // taskList: [],
+      // userList: [],
+      navButtons: [],
+      selectedNav: '',
     };
-    this.handleChanges = this.handleChanges.bind(this);
   }
 
+  componentDidMount() {
+    const token = localStorage.getItem('token')
+    if (token) {
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+      }
 
-  handleChanges(event) {
-    const { value, name } = event.target;
+      fetch('http://localhost:3100/login', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          user: data.name,
+          role:data.role,
+          userId: data.userId,
+        });
+        if (data.role === 'admin') {
+          this.setState({
+            navButtons: [
+              {name: 'Usuários', value: 'users'},
+              {name: 'Novo Usuários', value: 'addUser'},
+              {name: 'Tarefas', value: 'tasks'},
+              {name: 'Nova Tarefa', value: 'addTask'},
+            ],
+            selectedNav: 'users',
+          });
+        }
+        if (data.role === 'user') {
+          this.setState({
+            navButtons: [
+              {name: 'Tarefas', value: 'tasks'},
+            ],
+            selectedNav: 'tasks',
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    }
+  }
+
+  changeNav = (nav) => {
     this.setState({
-      [name]: value,
-    });
+      selectedNav: nav
+    })
   }
+
+  // componentDidUpdate() {
+  //   const token = localStorage.getItem('token')
+  //   const { userId, role } = this.state;
+
+  //   if (role === 'admin') {
+  //     const getusersoptions = {
+  //       method: 'GET',
+  //       headers: { 'Content-Type': 'application/json' , 'Authorization': token },
+  //     }
+  
+  //     fetch('http://localhost:3100/user', getusersoptions)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       this.setState({
+  //         userList: data.user,
+  //       })
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     });
+  //   }
+  // }
 
   render() {
-    const { email, password } = this.state;
+    const { user, navButtons, selectedNav } = this.state;
+    console.log(selectedNav);
     return (
      <div>
-       <Nav />
+       <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
        <Table />
      </div>
     );
