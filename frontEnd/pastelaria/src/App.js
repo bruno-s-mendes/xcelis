@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Admin from './pages/Admin';
+import User from './pages/User';
 import Login from './pages/Login';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <Switch>
     {/* <Route exact path="/" component={  } /> */}
     <Route exact path="/login" component={ Login  } />
-    <Route exact path="/admin" component={ Admin } />
+    <Route exact path="/admin" component={ User } />
     <Route exact path="/user" component={ Login } />
   </Switch>
   );

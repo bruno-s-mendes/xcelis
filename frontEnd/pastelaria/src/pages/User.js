@@ -1,8 +1,8 @@
 import React from 'react';
-import AddTask from '../components/AddTask';
+// import AddTask from '../components/AddTask';
 // import AddUser from '../components/AddUser';
-// import Table from '../components/table';
-import Nav from '../components/nav';
+import UserTable from '../components/UserTable';
+import Nav from '../components/Nav';
 
 
 
@@ -18,6 +18,7 @@ class Admin extends React.Component {
       navButtons: [],
       selectedNav: '',
     };
+    this.updateUsers = this.updateUsers.bind(this);
   }
 
   componentDidMount() {
@@ -101,15 +102,21 @@ class Admin extends React.Component {
     })
   }
 
+  updateUsers = (users) => {
+    this.setState({
+      userList: users
+    })
+  }
+
   render() {
     const { user, navButtons, selectedNav, userList } = this.state;
     console.log(selectedNav);
     return (
      <div>
        <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
-       {/* <Table /> */}
+       <UserTable userList={userList} updateUsers={this.updateUsers}/>
        {/* <AddUser changeNav={this.changeNav}/> */}
-       <AddTask changeNav={this.changeNav} userList={userList}/>
+       {/* <AddTask changeNav={this.changeNav} userList={userList}/> */}
      </div>
     );
   }
