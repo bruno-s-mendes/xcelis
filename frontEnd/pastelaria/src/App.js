@@ -6,10 +6,9 @@ import Login from './pages/Login';
 function App() {
   return (
     <Switch>
-    {/* <Route exact path="/" component={  } /> */}
+    <Route exact path="/" component={ Login } />
     <Route exact path="/login" component={ Login  } />
-    <Route exact path="/admin" component={ User } />
-    <Route exact path="/user" component={ Login } />
+    <Route exact path="/user" component={ User } />
   </Switch>
   );
 }

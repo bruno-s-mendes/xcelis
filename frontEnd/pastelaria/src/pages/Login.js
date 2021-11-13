@@ -24,16 +24,9 @@ class Login extends React.Component {
       fetch('http://localhost:3100/login', requestOptions)
       .then(response => response.json())
       .then(data => {
-        if(data.role === 'admin') {
-          this.setState({
-            redirectRoute: '/admin'
-          })
-        }
-        if(data.role === 'user') {
-          this.setState({
-            redirectRoute: '/user'
-          })
-        }
+        this.setState({
+          redirectRoute: '/user'
+        })
       })
       .catch(error => {
         console.log(error)
@@ -75,18 +68,9 @@ class Login extends React.Component {
     if (responseStatus === 200) {
       localStorage.setItem('token', responseData.token);
       localStorage.setItem('role', responseData.role);
-      if(responseData.role === 'admin') {
-        console.log(responseData.role)
-        this.setState({
-          redirectRoute: '/admin'
-        })
-      }
-      if(responseData.role === 'user') {
-        console.log(responseData.role)
-        this.setState({
-          redirectRoute: '/user'
-        })
-      }
+      this.setState({
+        redirectRoute: '/user'
+      })
     }
   }
 

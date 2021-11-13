@@ -1,5 +1,5 @@
 import React from 'react';
-// import AddTask from '../components/AddTask';
+import AddTask from '../components/AddTask';
 import AddUser from '../components/AddUser';
 import UserTable from '../components/UserTable';
 import Nav from '../components/Nav';
@@ -111,14 +111,35 @@ class Admin extends React.Component {
   render() {
     const { user, navButtons, selectedNav, userList } = this.state;
     console.log(selectedNav);
-    return (
-     <div>
-       <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
-       <UserTable userList={userList} updateUsers={this.updateUsers} changeNav={this.changeNav}/>
-       <AddUser changeNav={this.changeNav}/>
-       {/* <AddTask changeNav={this.changeNav} userList={userList}/> */}
-     </div>
-    );
+    switch (selectedNav) {
+      case ('addUser'):
+        return (
+          <div>
+            <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
+            <AddUser changeNav={this.changeNav}/>
+          </div>
+         );
+         case ('addTask'):
+          return (
+            <div>
+              <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
+              <AddTask changeNav={this.changeNav} userList={userList}/>
+            </div>
+           );
+           case ('users'):
+            return (
+              <div>
+                <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
+                <UserTable userList={userList} updateUsers={this.updateUsers} changeNav={this.changeNav}/>
+              </div>
+             );
+      default:
+        return (
+          <div>
+            <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
+          </div>
+         );
+    }
   }
 }
 

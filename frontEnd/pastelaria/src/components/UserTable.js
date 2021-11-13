@@ -10,7 +10,6 @@ class UserTable extends React.Component {
       people:[],
     };
     this.deleteUser = this.deleteUser.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
