@@ -3,6 +3,7 @@ import AddTask from '../components/AddTask';
 import AddUser from '../components/AddUser';
 import UserTable from '../components/UserTable';
 import Nav from '../components/Nav';
+import TaskTable from '../components/TaskTable';
 
 
 
@@ -108,9 +109,14 @@ class Admin extends React.Component {
     })
   }
 
+  updateTasks = (tasks) => {
+    this.setState({
+      taskList: tasks
+    })
+  }
+
   render() {
-    const { user, navButtons, selectedNav, userList } = this.state;
-    console.log(selectedNav);
+    const { user, navButtons, selectedNav, userList, taskList } = this.state;
     switch (selectedNav) {
       case ('addUser'):
         return (
@@ -137,6 +143,7 @@ class Admin extends React.Component {
         return (
           <div>
             <Nav user={user} navButtons={navButtons} changeNav={this.changeNav}/>
+            <TaskTable taskList={taskList} updateTasks={this.updateTasks} />
           </div>
          );
     }

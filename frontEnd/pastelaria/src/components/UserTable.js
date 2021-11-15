@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class UserTable extends React.Component {
   constructor(props) {
     super(props);
