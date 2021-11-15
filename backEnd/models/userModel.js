@@ -54,6 +54,15 @@ const deleteById = async (id) => {
   return response;
 };
 
+const deleteAll = async () => {
+  const collection = await connection()
+  .then((db) => db.collection(COLLECTION));
+
+  const response = await collection.deleteMany();
+
+  return response;
+};
+
 const addPathById = async (id, photoPath) => {
   const collection = await connection()
   .then((db) => db.collection(COLLECTION));
@@ -72,5 +81,6 @@ module.exports = {
   getByEmail,
   deleteById,
   addPathById,
-  getById
+  getById,
+  deleteAll
 };

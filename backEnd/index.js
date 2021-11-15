@@ -39,6 +39,7 @@ app.post('/user', authMid, isAdminMid, userInputValidationMid, userController.in
 app.post('/user/:id', authMid, isAdminMid, userIdValidationMid, upload.single('image'), userController.uploadImage);
 app.delete('/user/:id', authMid, isAdminMid, userIdValidationMid, userController.deleteUser);
 
+app.get('/login', authMid, loginController.user);
 app.post('/login', loginValidationMid, loginController.login);
 
 app.get('/task', authMid, taskController.getTask);

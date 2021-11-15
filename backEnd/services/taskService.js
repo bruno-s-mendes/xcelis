@@ -8,7 +8,19 @@ const getTasks = async (user, userId) => {
     return response;
   } 
   response = await taskModel.getAllByUserId(userId);
-  return response;
+  const username = await userModel.getById(userId)
+
+  const result = response.map((task) => ({
+    username: username.name,
+    userId: task.userId,
+    content: task.content,
+    deadline: task.deadline,
+    managerId: task.managerId,
+    status: task.status,
+    id: task._id,
+  }))
+
+  return result;
 }
 
 const insertTask = async ({ userId, managerId, content, deadline }) => {

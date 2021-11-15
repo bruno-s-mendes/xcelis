@@ -4,8 +4,8 @@ const getUsers = async () => {
   const response = await userModel.getAll();
 
   const result = response.map(element => {
-    const {name, birth, phone, cell, email, photoPath, role} = element;
-    return {name, birth, phone, cell, email, photoPath, role}
+    const {_id, name, birth, phone, cell, email, photoPath, role} = element;
+    return {id: _id, name, birth, phone, cell, email, photoPath, role}
   });
 
   return result;

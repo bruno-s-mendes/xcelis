@@ -17,13 +17,15 @@ module.exports = async (req, res, next) => {
     // eslint-disable-next-line no-unused-vars
     const  { iat: _, ...userPayload } = jwt.verify(token, SECRET);
     id = userPayload._id;
-    // payload = userPayload;
   } catch (error) {
     return res.status(HTTP_UNATUTHORIZED_STATUS).json({ message: error });
   }
 
   
-  const { name, email, role } = await userModel.getById(id);
+  const user = await userModel.getById(id);
+  if (!user) return res.status(HTTP_UNATUTHORIZED_STATUS).json({ message: 'User not found' });
+  
+   const { name, email, role } = user;
   req.user = { name, email, role };
   req.userId = id;
   

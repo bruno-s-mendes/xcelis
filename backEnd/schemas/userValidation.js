@@ -11,7 +11,7 @@ const schema =  Joi.object({
     .required(),
 
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } })
     .required(),
 
   phone: Joi.number()
@@ -29,7 +29,7 @@ const loginSchema =  Joi.object({
     .required(),
 
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } })
     .required(),
 });
 

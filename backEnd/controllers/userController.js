@@ -1,5 +1,5 @@
 const userService = require('../services/userService');
-const path = require('path');
+// const path = require('path');
 
 const HTTP_ERROR_STATUS = 400;
 const HTTP_OK_STATUS = 200;
@@ -8,7 +8,7 @@ const HTTP_CREATED_STATUS = 201;
 const getUsers = async (_req, res) => {
   try {
     const response = await userService.getUsers();
-    return res.status(HTTP_OK_STATUS).json({ user: response });
+    return res.status(HTTP_OK_STATUS).json({ users: response });
   } catch (error) {
     return res.status(HTTP_ERROR_STATUS).json({
       message: error,
@@ -43,7 +43,7 @@ const deleteUser = async (req, res) => {
 const uploadImage = async (req, res) => {
   try {
     const { id } = req.params;
-    const photoPath = path.join(__dirname, '..', `uploads/${id}.jpeg`)
+    const photoPath = `http://localhost:3100/uploads/${id}.jpeg`
     const response = await userService.updatePath(id, photoPath);
     return res.status(HTTP_OK_STATUS).json(response );
   } catch (error) {
