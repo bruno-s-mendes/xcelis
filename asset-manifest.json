@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/xcelis/static/css/main.03165f0f.chunk.css",
+    "main.js": "/xcelis/static/js/main.9eb7df5d.chunk.js",
+    "main.js.map": "/xcelis/static/js/main.9eb7df5d.chunk.js.map",
+    "runtime-main.js": "/xcelis/static/js/runtime-main.921bea32.js",
+    "runtime-main.js.map": "/xcelis/static/js/runtime-main.921bea32.js.map",
+    "static/js/2.ef1c0d3c.chunk.js": "/xcelis/static/js/2.ef1c0d3c.chunk.js",
+    "static/js/2.ef1c0d3c.chunk.js.map": "/xcelis/static/js/2.ef1c0d3c.chunk.js.map",
+    "static/js/3.07cf870f.chunk.js": "/xcelis/static/js/3.07cf870f.chunk.js",
+    "static/js/3.07cf870f.chunk.js.map": "/xcelis/static/js/3.07cf870f.chunk.js.map",
+    "index.html": "/xcelis/index.html",
+    "static/css/main.03165f0f.chunk.css.map": "/xcelis/static/css/main.03165f0f.chunk.css.map",
+    "static/js/2.ef1c0d3c.chunk.js.LICENSE.txt": "/xcelis/static/js/2.ef1c0d3c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.921bea32.js",
+    "static/js/2.ef1c0d3c.chunk.js",
+    "static/css/main.03165f0f.chunk.css",
+    "static/js/main.9eb7df5d.chunk.js"
+  ]
+}
