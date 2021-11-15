@@ -39,16 +39,16 @@ class UserTable extends React.Component {
     }
     fetch(`http://localhost:3100/user/${id}`, deleteUserOptions)
     .then(response => response.json())
-    .then(data => {
-      changeNav('user');
-    })
     .catch(error => {
       console.log(error)
     });
+    changeNav('users');
+    
   }
 
 render() {
   const { userList } = this.props;
+  console.log(userList);
   return (
     <div className="flex flex-col">
     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -79,9 +79,9 @@ render() {
                 <tr key={person.email}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      {/* <div className="flex-shrink-0 h-10 w-10">
-                        <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
-                      </div> */}
+                      <div className="flex-shrink-0 h-10 w-10">
+                        <img className="h-10 w-10 rounded-full" src={person.photoPath} alt="" />
+                      </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">{person.name}</div>
                         <div className="text-sm text-gray-500">{person.email}</div>
@@ -91,6 +91,7 @@ render() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
+                      type='button'
                       className="text-red-600"
                       onClick={() => this.deleteUser(person.id)}
                     >

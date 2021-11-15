@@ -11,21 +11,22 @@ class AddUser extends React.Component {
       email: '',
       password: '',
       role: 'admin',
+      file: null
     };
     this.handleChanges = this.handleChanges.bind(this);
   }
 
   handleChanges(event) {
     const { value, name } = event.target;
-    this.setState({
+    this.setState({ 
       [name]: value,
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const token = localStorage.getItem('token')
-    const { username, birth, phone, cell, email, password, role } = this.state;
+    const { username, birth, phone, cell, email, password, role, file } = this.state;
     const { changeNav } = this.props
     const requestOptions = {
       method: 'POST',
@@ -40,19 +41,37 @@ class AddUser extends React.Component {
         role,
       }),
     }
-    fetch('http://localhost:3100/user', requestOptions)
-    .then(response => {
-      if (response.status === 201) {
-        changeNav('user');
-      }
-    })
+    let response;
+    await fetch('http://localhost:3100/user', requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      response = data;
+      })
     .catch(error => {
       console.log(error.message)
     });
+    const formData = new FormData();
+		formData.append('image', file);
+    const requestOptionsImage = {
+      method: 'POST',
+      headers: { 'Authorization': token },
+      body: formData,
+    }
+    if (response) {
+      fetch(`http://localhost:3100/user/${response.id}`, requestOptionsImage)
+      .then(response => {
+        if (response.code === 200) {
+          changeNav('users');
+        }
+      })
+      .catch(error => {
+        console.log(error.message)
+      });
+    }
   }
 
   render() {
-    const { username, birth, phone, cell, email, password, role} = this.state;
+    const { username, birth, phone, cell, email, password, role } = this.state;
     return (
       <form 
       style={{display: 'flex', flexDirection: 'column'}}
@@ -161,6 +180,20 @@ class AddUser extends React.Component {
             <option value='user'>user</option>
           </select>
         </div>
+        </div>
+        <div>
+          <label htmlFor="file" className="block text-sm font-medium text-gray-700">
+            Profile picture
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="file"
+              name="file"
+              onChange={ (event) => this.setState({file: event.target.files[0]})}
+              style={{border: "solid black 1px"}}
+              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-12 sm:text-sm border-indigo-500  rounded-md"
+            />
+          </div>
         </div>
         <button
               type="submit"
