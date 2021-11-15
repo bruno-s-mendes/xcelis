@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "seed": "node ./models/seed.js",
     "test": "mocha ./tests/**/*$NAME*.test.js --exit",
     "test:coverage": "nyc mocha ./tests/**/*$NAME*.test.js --exit",

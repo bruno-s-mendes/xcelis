@@ -3,11 +3,6 @@ import React from 'react';
 class TaskTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      t: '',
-      password: '',
-      people:[],
-    };
     this.handleChanges = this.handleChanges.bind(this);
   }
 
@@ -30,7 +25,6 @@ class TaskTable extends React.Component {
   }
 
   handleChanges = (event, id) => {
-    console.log(event.target.value);
     const token = localStorage.getItem('token');
     const updateTaskOptions = {
       method: 'PUT',

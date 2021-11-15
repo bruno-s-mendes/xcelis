@@ -47,7 +47,6 @@ class UserTable extends React.Component {
 
 render() {
   const { userList } = this.props;
-  console.log(userList);
   return (
     <div className="flex flex-col">
     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
